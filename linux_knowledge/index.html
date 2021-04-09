@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Some Linux Knowledge - STM32MP1 Wiki</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Some Linux Knowledge";
+    var mkdocs_page_input_path = "linux_knowledge.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> STM32MP1 Wiki</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../stm32mp1_series/">STM32MP1 Microprocessor Series</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../reference/">External Reference</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../getting_started/">Getting Started</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Some Linux Knowledge</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#the-shell">The Shell</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pwd-print-working-directory">pwd (Print Working Directory)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cd-change-directory">cd (Change Directory)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ls-list-directories">ls (List Directories)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#touch">touch</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#file">file</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cat">cat</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#less">less</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#history">history</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about/">About</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">STM32MP1 Wiki</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Some Linux Knowledge</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="linux-introduction">Linux Introduction</h1>
+<p>Welcome to Introduction to Linux section! Here you’ll find some general linux concepts which will come in handy when we dive deeper into working with STM32MP1 DK. </p>
+<h2 id="the-shell">The Shell</h2>
+<p>The shell is basically a program that takes your commands from the keyboard and sends them to the operating system to perform. If you’ve ever used a GUI, you’ve probably seen programs such as “Terminal” or “Console” these are just programs that launch a shell for you. <br></p>
+<p>Depending on the distribution your shell prompt might change, but for the most part it should adhere to the following format:</p>
+<pre><code>username@hostname:current_directory 
+deepak@STM32MP1:/home $
+</code></pre>
+<p>Notice the $ at the end of the prompt? Different shells will have different prompts, in our case:</p>
+<ul>
+<li>the $ is for a normal user</li>
+<li>the # is for a root user</li>
+</ul>
+<p>Let’s start with a simple command, echo. The echo command just prints out the text arguments to the display.</p>
+<pre><code>$ echo Hello World
+Hello World
+</code></pre>
+<h2 id="pwd-print-working-directory">pwd (Print Working Directory)</h2>
+<p>Everything in Linux is a file. Every file is organized in a hierarchical directory tree. The first directory in the filesystem is aptly named the root directory. The root directory has many folders and files which you can store more folders and files, etc. Here is an example of what the directory tree looks like:</p>
+<pre><code>/
+
+|-- bin
+
+|   |-- file1
+
+|   |-- file2
+
+|-- etc
+
+|   |-- file3
+
+|   -- directory1
+
+|       |-- file4
+
+|       -- file5
+
+|-- home
+
+|-- var
+</code></pre>
+<p>The location of these files and directories are referred to as paths. If you had a folder named <code>home</code> with a folder inside of it named <code>etc</code> and another folder in that folder called <code>sys</code>, that path would look like this: <code>/home/etc/sys</code> <br></p>
+<p>Navigation of the filesystem, much like real life is helpful if you know where you are and where you are going. To see where you are, you can use the <code>pwd</code> command, this command means “print working directory” and it just shows you which directory you are in, note the path stems from the root directory.</p>
+<pre><code>$pwd
+/home/root
+</code></pre>
+<h2 id="cd-change-directory">cd (Change Directory)</h2>
+<p>Now that you know where you are, let’s see if we can move around the filesystem a bit. There are two different ways to specify a path, with absolute and relative paths.</p>
+<ul>
+<li>
+<p><strong> Absolute path </strong>: This is the path from the root directory. The root is the head or parent directory. The root directory is commonly shown as a slash <code>/</code>. Every time your path starts with <code>/</code> it means you are starting from the root directory. For example, <code>/home/deepak/Desktop</code>.</p>
+</li>
+<li>
+<p><strong> Relative path </strong>: This is the path from where you are currently in filesystem. If I was in location <code>/home/deepak/Documents</code> and wanted to get to a directory inside Documents called <code>files</code>, I don’t have to specify the whole path from root like <code>/home/deepak/Documents/files</code>, I can just go to <code>files/</code> instead.</p>
+<pre><code>cd /home/root
+</code></pre>
+</li>
+</ul>
+<p>It can get pretty tiring navigating with absolute and relative paths all the time, luckily there are some shortcuts to help you out.</p>
+<ul>
+<li><code>.</code> (current directory). This is the directory you are currently in.</li>
+<li><code>..</code> (parent directory). Takes you to the directory above your current.</li>
+<li><code>~</code> (home directory). This directory defaults to your “home directory”. Such as /home/deepak.</li>
+<li><code>-</code> (previous directory). This will take you to the previous directory you were just at.</li>
+<li><code>cd</code> (home directory). This is another way to go to home directory. <pre><code>$ cd .
+$ cd ..
+$ cd ~
+$ cd -
+</code></pre>
+</li>
+</ul>
+<h2 id="ls-list-directories">ls (List Directories)</h2>
+<p>Now that we know how to move around the system, how do we figure out what is available to us? The <code>ls</code> command will list directories and files in the current directory by default, however you can specify which path you want to list the directories of.</p>
+<pre><code>$ ls
+bin   dev  home  lost+found  mnt   root  sbin  tmp  var
+boot  etc  lib   media       proc  run   sys   usr  vendor
+
+$ ls /home/deepak
+example_file_1  example_file_2
+</code></pre>
+<p>Also note that not all files in a directory will be visible. Filenames that start with <code>.</code> are hidden, you can view them however with the <code>ls</code> command and pass the <code>-a</code> flag to it (a for all).</p>
+<pre><code>$ ls -a
+</code></pre>
+<p>There is also one more useful <code>ls</code> flag, <code>-l</code> for long, this shows a detailed list of files in a long format. This will show you detailed information, starting from the left: <code>file permissions</code>, <code>number of links</code>, <code>owner name</code>, <code>owner group</code>, <code>file size</code>, <code>timestamp of last modification</code>, and <code>file/directory name</code></p>
+<pre><code>$ ls -l
+total 37
+drwxr-xr-x   2 root root  5120 Mar  9  2018 bin
+drwxr-xr-x  18 root root  1024 Mar 15  2019 boot
+drwxr-xr-x  13 root root 13840 Apr  9 02:28 dev
+drwxr-xr-x  44 root root  4096 Mar  2  2019 etc
+drwxr-xr-x   3 root root  1024 Mar  9  2018 home
+drwxr-xr-x  12 root root  4096 Mar  9  2018 lib
+drwx------   2 root root 12288 Mar 15  2019 lost+found
+drwxr-xr-x   2 root root  1024 Mar  9  2018 media
+drwxr-xr-x   2 root root  1024 Mar  9  2018 mnt
+dr-xr-xr-x 133 root root     0 Jan  1  1970 proc
+drwxr-xr-x   5 root root  1024 Apr  8 07:48 root
+drwxr-xr-x  13 root root   380 Apr  9 02:29 run
+drwxr-xr-x   3 root root  4096 Mar  9  2018 sbin
+dr-xr-xr-x  12 root root     0 Jan  1  2000 sys
+drwxrwxrwt   7 root root   180 Apr  9 09:43 tmp
+drwxr-xr-x  11 root root  1024 Mar  9  2018 usr
+drwxr-xr-x   9 root root  1024 Mar  2  2019 var
+drwxr-xr-x   4 root root  1024 Mar 15  2019 vendor
+</code></pre>
+<p>Commands have things called flags (or arguments or options, whatever you want to call it) to add more functionality. You can add them both together. For example, <code>-la</code>. The order of the flags determines which order it goes in. You can also do ls <code>-al</code> and it would still work. <br></p>
+<p>Run <code>ls</code> with different flags and see the output you receive.</p>
+<ul>
+<li><code>ls -R</code>: recursively list directory contents</li>
+<li><code>ls -r</code>: reverse order while sorting</li>
+<li><code>ls -t</code>: sort by modification time, newest first</li>
+</ul>
+<h2 id="touch">touch</h2>
+<p>Touch allows you to the create new empty files.</p>
+<pre><code>$ touch mysuperduperfile
+</code></pre>
+<p>Touch is also used to change timestamps on existing files and directories. Give it a try, do an <code>ls -l</code> on a file and note the timestamp, then <code>touch</code> that file and it will update the timestamp.</p>
+<h2 id="file">file</h2>
+<p>We learned about touch but did you notice that the filename didn’t conform to standard naming like you’ve probably seen with other operating systems like Windows? Normally you would expect a file called banana.jpeg and expect a JPEG picture file. <br></p>
+<p>In Linux, filenames aren’t required to represent the contents of the file. You can create a file called <code>funny.gif</code> that isn’t actually a GIF.</p>
+<p>To find out what kind of file a file is, you can use the file command. It will show you a description of the file’s contents.</p>
+<pre><code>$ file Documents
+Documents: directory
+</code></pre>
+<h2 id="cat">cat</h2>
+<p>Let’s learn how to read a file. A simple command to use is the cat command, short for concatenate, it not only displays file contents but it can combine multiple files and show you the output of them.</p>
+<pre><code>$ cat dogfile birdfile
+</code></pre>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>It’s not great for viewing large files and it’s only meant for short content. There are many other tools that we use to view larger text files that we’ll discuss later. </p>
+</div>
+<h2 id="less">less</h2>
+<p>If you are viewing text files larger than a simple output then you can use <code>less</code> command. The text is displayed in a paged manner, so you can navigate through a text file page by page.<br></p>
+<p>Go ahead and look at the contents of a file with less. Once you’re in the less command, you can actually use other keyboard commands to navigate in the file.</p>
+<pre><code>$ less /home/deepak/Documents/text1
+</code></pre>
+<p>Use the following command to navigate through less:</p>
+<ul>
+<li><code>q</code> - Used to quit out of less and go back to your shell.</li>
+<li><code>Page up</code>, <code>Page down</code>, <code>Up</code> and <code>Down</code> - Navigate using the arrow keys and page keys.</li>
+<li><code>g</code> - Moves to beginning of the text file.</li>
+<li><code>G</code> - Moves to the end of the text file.</li>
+<li><code>/sometexttosearch</code> - You can search for specific text inside the text document. Prefacing the words you want to search with <code>/</code></li>
+<li><code>h</code> - If you need a little help about how to use less while you’re in less, use help.</li>
+</ul>
+<h2 id="history">history</h2>
+<p>In your shell, there is a history of the commands that you previously entered, you can actually look through these commands. This is quite useful when you want to find and run a command you used previously without actually typing it again.<br></p>
+<pre><code>$ history
+</code></pre>
+<p>Want to run the same command you did before, just hit the up arrow.</p>
+<p>Want to run the previous command without typing it again? Use <code>!!</code> If you typed <code>cat file1</code> and want to run it again, you can actually just go <code>!!</code> and it will run the last command. <br></p>
+<p>Another history shortcut is <code>ctrl-R</code>, this is the reverse search command, if you hit <code>ctrl-R</code> and you start typing parts of the command you want it will show you matches and you can just navigate through them by hitting the <code>ctrl-R</code> key again. Once you found the command you want to use again, just hit the <code>Enter</code> key. <br></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If the terminal window gets cluttered, use the <code>$ clear</code> command to clear up your display.</p>
+</div>
+<p>While we are talking about useful things, one of the most useful features in any command-line environment is tab completion. If you start typing the beginning of a command, file, directory, etc and hit the Tab key, it will autocomplete based on what it finds in the directory you are searching as long as you don’t have any other files that start with those letters. For example if you were trying to run the command chrome, you can type chr and press Tab and it will autocomplete chrome.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../about/" class="btn btn-neutral float-right" title="About">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../getting_started/" class="btn btn-neutral" title="Getting Started"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../getting_started/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../about/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
