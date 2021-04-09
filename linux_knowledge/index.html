@@ -108,6 +108,12 @@
     </li>
         </ul>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#working-with-text">Working with Text</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#stdout-standard-out">stdout (Standard Out)</a>
+    </li>
+        </ul>
+    </li>
     </ul>
                     </li>
                 </ul>
@@ -428,6 +434,27 @@ or similar files if you want to have it persist after reboot. <br></p>
 <pre><code>$ logout
 </code></pre>
 <p>Or if you are working out of a terminal GUI, you can just close the terminal.</p>
+<h2 id="working-with-text">Working with Text</h2>
+<h3 id="stdout-standard-out">stdout (Standard Out)</h3>
+<p>Use <code>echo</code> to print something on the screen. </p>
+<pre><code>$ echo Hello World
+</code></pre>
+<p>We know this prints out Hello World to the screen, but how? Processes use I/O streams to receive input and return output. By default the echo command takes the input (standard input or stdin) from the keyboard and returns the output (standard output or stdout) to the screen. So that's why when you type echo Hello World in your shell, you get Hello World on the screen. However, I/O redirection allows us to change this default behavior giving us greater file flexibility.</p>
+<pre><code>&gt;
+</code></pre>
+<p>The &gt; is a redirection operator that allows us the change where standard output goes. It allows us to send the output of echo Hello World to a file instead of the screen. If the file does not already exist it will create it for us. However, if it does exist it will overwrite it (you can add a shell flag to prevent this depending on what shell you are using). <br></p>
+<p>And that's basically how stdout redirection works!</p>
+<pre><code>$ echo Hello World &gt; peanuts.txt
+</code></pre>
+<p>What just happened? Well check the directory where you ran that command and you should see a file called peanuts.txt, look inside that file and you should see the text Hello World. Lots of things just happened in one command so let's break it down.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If the file already exist it will overwrite it the file with the new file. You can always use the shell flag <code>-i</code> to warn you before overwriting. </p>
+</div>
+<p>If you just want to append the test to the file then use <code>&gt;&gt;</code> instead of <code>&gt;</code></p>
+<pre><code>$ echo Hello World &gt;&gt; peanuts.txt
+</code></pre>
+<p>This will append Hello World to the end of the peanuts.txt file, if the file doesn't already exist it will create it for us like it did with the <code>&gt;</code> redirector!</p>
               
             </div>
           </div>
