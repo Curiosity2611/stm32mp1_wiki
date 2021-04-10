@@ -134,6 +134,26 @@
     </li>
         </ul>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#permissions">Permissions</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#file-permissions">File Permissions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#modifying-permissions">Modifying Permissions</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#packages">Packages</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#software-distribution">Software Distribution</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#package-repositories">Package Repositories</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#apt-package-management">apt (Package Management)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#compile-source-code">Compile Source Code</a>
+    </li>
     </ul>
                     </li>
                 </ul>
@@ -565,6 +585,104 @@ will find the pretty words in the text file.
 <li><code>Ctrl-r</code> - redo your last action</li>
 </ul>
 <p>You may not think <code>ZZ</code> is necessary, but you'll eventually see that your fingers may tend to lean towards this rather than <code>:wq</code>. <br></p>
+<h2 id="permissions">Permissions</h2>
+<h3 id="file-permissions">File Permissions</h3>
+<p>Files have different permissions or file modes. Let's look at an example:</p>
+<pre><code>$ ls -l Desktop/
+drwxr-xr-x 2 pete penguins 4096 Dec 1 11:45 .
+</code></pre>
+<p>There are four parts to a file's permissions. The first part is the filetype, which is denoted by the first character in the permissions, in our case since we are looking at a directory it shows <code>d</code> for the filetype. Most commonly you will see a <code>-</code> for a regular file.</p>
+<p>The next three parts of the file mode are the actual permissions. The permissions are grouped into 3 bits each. The first 3 bits are user permissions, then group permissions and then other permissions. I've added the pipe to make it easier to differentiate.</p>
+<pre><code>d | rwx | r-x | r-x
+</code></pre>
+<p>Each character represent a different permission: </p>
+<ul>
+<li><code>r:</code> readable</li>
+<li><code>w:</code> writable</li>
+<li><code>x:</code> executable (basically an executable program)</li>
+<li><code>-:</code> empty</li>
+</ul>
+<p>So in the above example, we see that the user pete has read, write and execute permissions on the file. The group penguins has read and execute permissions. And finally, the other users (everyone else) has read and execute permissions.</p>
+<h3 id="modifying-permissions">Modifying Permissions</h3>
+<p>Changing permissions can easily be done with the chmod command.
+First, pick which permission set you want to change, user, group or other. You can add or remove permissions with a <code>+</code> or <code>-</code>, let's look at some examples.</p>
+<p>Adding permission bit on a file </p>
+<pre><code>$ chmod u+x myfile
+</code></pre>
+<p>The above command reads like this: change permission on myfile by adding executable permission bit on the user set. So now the user has executable permission on this file!</p>
+<p>Removing permission bit on a file </p>
+<pre><code>$ chmod u-x myfile
+</code></pre>
+<p>Adding multiple permission bits on a file </p>
+<pre><code>$ chmod ug+w
+</code></pre>
+<p>There is another way to change permissions using numerical format. This method allows you to change permissions all at once. Instead of using <code>r</code>, <code>w</code>, or <code>x</code> to represent permissions, you'll use a numerical representation for a single permission set. So no need to specify the group with <code>g</code> or the user with <code>u</code>.</p>
+<p>The numerical representations are seen below:</p>
+<ul>
+<li><code>4</code>: read permission</li>
+<li><code>2</code>: write permission</li>
+<li><code>1</code>: execute permission</li>
+</ul>
+<p>Let's look at an example:</p>
+<pre><code>$ chmod 755 myfile
+</code></pre>
+<p>Can you guess what permissions we are giving this file? Let's break this down, so now <code>755</code> covers the permissions for all sets. The first number <code>7</code> represents user permissions, the second number <code>5</code> represents group permissions and the last <code>5</code> represents other permissions.</p>
+<p>But, <code>7</code> and <code>5</code> weren't listed above, where are we getting these numbers? Remember we are combining all the permissions into one number now, so you'll have to get some math involved.</p>
+<p><code>7 = 4 + 2 + 1</code>, so <code>7</code> is the user permissions and it has <code>read</code>, <code>write</code> and <code>execute</code> permissions</p>
+<p><code>5 = 4 + 1</code>, the group has <code>read</code> and <code>execute</code> permissions</p>
+<p><code>5 = 4 +1</code>, and all other users have <code>read</code> and <code>execute</code> permissions</p>
+<p>One thing to note: it's not a great idea to be changing permissions, you could potentially expose a sensitive file for everyone to modify, however many times you legitimately want to change permissions, just take precaution when using the <code>chmod</code> command.</p>
+<h2 id="packages">Packages</h2>
+<h3 id="software-distribution">Software Distribution</h3>
+<p>Your system is comprised of many packages such as internet browsers, text editors, media players, etc. These packages are managed via package managers, which install and maintain the software on your system. Not all packages are installed through package managers though, you can commonly install packages directly from their source code, however the majority of the time you will use a package manager to install software. </p>
+<p>What are packages? You may know them as Chrome, Photoshop, etc and they are, but what they really are just lots and lots of files that have been compiled into one. The people (or sometimes a single person) that write this software are known as upstream providers, they compile their code and write up how to get it installed. These upstream providers work on getting out new software and update existing software. When they are ready to release it to the world, they send their package to package maintainers, who handle getting this piece of software in the hands of the users. These package maintainers review, manage and distribute this software in the form of packages.</p>
+<h3 id="package-repositories">Package Repositories</h3>
+<p>Repositories are just a central storage location for packages. There are tons of repositories that hold lots of packages and best of all they are all found on the internet. Your machine doesn't know where to look for these repositories unless you explicitly tell it where to look.</p>
+<p>For example, let's say I want WackyWidgets Software on my machine. Well WackyWidgets manages their own repositories for their widget packages, inside this repository are 10 packages, the CoolWidget package, the SuperWidget package, etc. WackyWidgets hosts this repository at a source link called: http://download.widgets/linux/deb/</p>
+<p>Now instead of going to their website to download the package directly, you can tell your machine to find WackyWidgets software from the source link.</p>
+<p>Your distribution already comes with pre-approved sources to get packages from and this is how it installs all the base packages you see on your system. On a Debian system, this sources file is the <code>/etc/apt/sources.list</code> file. Your machine will know to look there and check for any source repositories you added.</p>
+<h3 id="apt-package-management">apt (Package Management)</h3>
+<p>One of the most popular management systems is apt. </p>
+<pre><code>Debian: $ apt install package_name
+</code></pre>
+<p>Remove a package</p>
+<pre><code>Debian: $ apt remove package_name
+</code></pre>
+<p>Updating packages for a repository</p>
+<p>It's always best practice to update your package repositories so they are up to date before you install and update a package.</p>
+<pre><code>Debian: apt update; apt upgrade
+</code></pre>
+<p>Get information about an installed package</p>
+<pre><code>Debian: apt show package_name
+</code></pre>
+<h2 id="compile-source-code">Compile Source Code</h2>
+<p>Often times you will encounter an obscure package that only comes in the form of pure source code. You'll need to use a few commands to get that source code package compiled and installed on your system.</p>
+<p>First thing is first, you'll need to have software to install the tools that will allow you to compile source code.</p>
+<pre><code>$ sudo apt install build-essential
+</code></pre>
+<p>Once you do that, extract the contents of the package file, most likely a .tar.gz file.</p>
+<pre><code>$ tar -xzvf package.tar.gz
+</code></pre>
+<p>Before you do anything, take a look at the <code>README</code> or <code>INSTALL</code> file inside the package. Sometimes there will be specific installation instructions.</p>
+<p>Depending on what compile method that the developer used, you'll have to use different commands, such as <code>cmake</code> or something else.</p>
+<p>However, most commonly you'll see basic make compilation, so we'll discuss that:</p>
+<p>Inside the package contents will be a configure script, this script checks for dependencies on your system and if you are missing anything, you'll see an error and you'll need to fix those dependencies.</p>
+<pre><code>$ ./configure
+</code></pre>
+<p>The <code>./</code> allows you to execute a script in the current directory.</p>
+<pre><code>$ make
+</code></pre>
+<p>Inside of the package contents, there is a file called <code>Makefile</code> that contains rules to building the software. When you run the make command, it looks at this file to build the software.</p>
+<pre><code>$ sudo make install
+</code></pre>
+<p>This command actually installs the package, it will copy the correct files to the correct locations on your computer.</p>
+<p>If you want to uninstall the package, use:</p>
+<pre><code>$ sudo make uninstall
+</code></pre>
+<p>Be wary when using <code>make install</code>, you may not realize how much is actually going on in the background. If you decide to remove this package, you may not actually remove everything because you didn't realize what was added to your system. Instead forget everything about <code>make install</code> that I just explained to you and use the <code>checkinstall command</code>. This command will make a <code>.deb</code> file for you that you can easily install and uninstall.</p>
+<pre><code>$ sudo checkinstall
+</code></pre>
+<p>This command will essentially <code>make install</code> and build a <code>.deb</code> package and install it. This makes it easier to remove the package later on.</p>
               
             </div>
           </div>
