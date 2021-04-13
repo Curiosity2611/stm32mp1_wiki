@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Getting Started - STM32MP1 Wiki</title>
+  <title>Setting up STM32MP157C-DK2 - STM32MP1 Wiki</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,7 +18,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Getting Started";
+    var mkdocs_page_name = "Setting up STM32MP157C-DK2";
     var mkdocs_page_input_path = "getting_started.md";
     var mkdocs_page_url = null;
   </script>
@@ -60,7 +60,7 @@
                     </li>
                 </ul>
                 <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Getting Started</a>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Setting up STM32MP157C-DK2</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#required-equipment">Required Equipment</a>
     </li>
@@ -81,6 +81,14 @@
                 </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../linux_knowledge/">Some Linux Knowledge</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../board_details/">Board Specific Details</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../develop_cortexm4/">Develop on Cortex-M4</a>
                     </li>
                 </ul>
                 <ul>
@@ -108,7 +116,7 @@
     
       
     
-    <li>Getting Started</li>
+    <li>Setting up STM32MP157C-DK2</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -143,29 +151,28 @@
 <li>On Mac/Linux install minicom by running the following commands respectively <br>
 <code>$ sudo apt-get install minicom</code> for Linux. <br>
 <code>$ brew install minicom</code> for Mac.</li>
-<li>Get the port on which the device is connected by running the following command <br>
-<code>$ ls /dev/tty*</code></li>
 </ul>
+<p><strong> For Mac </strong>
+- Get the port on which the device is connected by running the following command <br>
+<code>$ ls /dev/tty*</code> and in my case the port is <code>/dev/tty.usbmodem142202</code> </p>
+<p><strong> For Linux </strong>
+- Get the port on which the device is connected by running the following command <br>
+<code>$ ls /dev/ttyACM*</code> and you should get the following output <code>/dev/ttyACM0</code></p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Run the command again by disconnecting the dev board from the host computer and notice which port is not listed. The missing port ID is your desired port ID.</p>
 </div>
 <ul>
-<li>
-<p>In my case the port is <code>/dev/tty.usbmodem142202</code> </p>
-</li>
-<li>
-<p>Connect minicom to the /dev/tty.usbmodem142202 device by running the following command: <br>
-<code>minicom -D /dev/tty.usbmodem142202</code> <br></p>
-</li>
+<li>Connect minicom to the minicom -D /dev/ttyACM0 device by running the following command: <br>
+for <strong> Mac </strong> <code>minicom -D /dev/tty.usbmodem142202</code> and for <strong> Linux </strong> <code>minicom -D /dev/ttyACM0</code> <br></li>
 </ul>
 <p>The output screen will be as follows: <br></p>
-<pre><code>$ minicom -D /dev/tty.usbmodem142202
-Welcome to minicom 2.8
+<pre><code>$ minicom -D /dev/ttyACM0
+Welcome to minicom 2.7.1
 
 OPTIONS: I18n 
 Compiled on Nov 15 2018, 20:18:47.
-Port /dev/tty.usbmodem142202, 15:56:03
+Port /dev/ttyACM0, 15:56:03
 
 Press CTRL-A Z for help on special keys
 </code></pre>
